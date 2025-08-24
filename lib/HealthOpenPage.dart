@@ -3,7 +3,15 @@ import 'package:healthcare/AppColors.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class HealthOpenPage extends StatelessWidget {
-  const HealthOpenPage({super.key});
+
+    final String email;
+  final String password;
+
+  
+  const HealthOpenPage({super.key ,  required this.email, required this.password});
+
+  
+ 
 
   void GuestButton() {}
   void FacebookButton() {}
