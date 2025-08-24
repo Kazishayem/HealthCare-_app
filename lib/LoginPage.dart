@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'HealthOpenPage.dart'; // import your HealthOpenPage
+import 'package:healthcare/HealthDetails.dart';
+import 'package:healthcare/HealthOpenPage.dart'; // import your HealthOpenPage
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -11,9 +12,9 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   final TextEditingController emailCtrl =
-      TextEditingController(text: ""); // default email
+      TextEditingController(text: "admin@gmail.com"); // default email
   final TextEditingController passCtrl =
-      TextEditingController(text: ""); // default password
+      TextEditingController(text: "admin"); // default password
   bool _obscurePassword = true;
 
   @override
@@ -109,7 +110,7 @@ class _LoginPageState extends State<LoginPage> {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (_) => HealthOpenPage(
+                              builder: (_) => HealthDetails(
                                 email: email,
                                 password: password,
                               ),

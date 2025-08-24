@@ -4,11 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 
 class HealthOpenPage extends StatelessWidget {
 
-    final String email;
-  final String password;
-
-  
-  const HealthOpenPage({super.key ,  required this.email, required this.password});
+  const HealthOpenPage({super.key });
 
   
  

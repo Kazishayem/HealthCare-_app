@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:healthcare/HealthOpenPage.dart';
 import 'package:healthcare/RegistrationPage.dart';
 import 'package:healthcare/LoginPage.dart';
+import 'package:healthcare/HealthDetails.dart';
+import 'package:healthcare/DoctorList.dart';
 
 void main() {
   runApp(MyApp());
@@ -17,14 +19,18 @@ class MyApp extends StatelessWidget {
       // home: HealthOpenPage(),
       // home: RegistrationPage(),
 
-      initialRoute: '/openpage',
+      initialRoute: '/doctorlist',
       routes: {
         '/openpage': (context) => HealthOpenPage(
+          
+        ),
+        '/registration': (context) => RegistrationPage(),
+        '/login': (context) => LoginPage(),
+        '/healthdetails': (context) => HealthDetails(
               email: "admin@gmail.com",
               password: "admin",
             ),
-        '/registration': (context) => RegistrationPage(),
-        '/login': (context) => LoginPage(),
+        '/doctorlist': (context) => DoctorList(),
       },
       onUnknownRoute: (settings) => MaterialPageRoute(
         builder: (_) =>
