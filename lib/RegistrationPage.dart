@@ -9,44 +9,54 @@ class RegistrationPage extends StatefulWidget {
 }
 
 class _RegistrationPageState extends State<RegistrationPage> {
-  bool isChecked = false; // checkbox er state
+  bool isChecked = false;
+  bool _obscurePassword = true; // password toggle
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-        decoration: const BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-            colors: [
-              Color.fromRGBO(202, 125, 10, 1),
-              Color.fromRGBO(86, 158, 224, 1),
-            ],
-          ),
-        ),
+      extendBodyBehindAppBar: true,
+      body: SafeArea(
         child: Center(
           child: SingleChildScrollView(
-            // ✅ scrollable korlam
             padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 40),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                Text(
-                  "REGISTRATION",
-                  style: GoogleFonts.poppins(
-                    fontSize: 30,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white,
+                // Title
+                Center(
+                  child: Text(
+                    "REGISTRATION",
+                    style: GoogleFonts.poppins(
+                      fontSize: 32,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white,
+                    ),
                   ),
                 ),
                 const SizedBox(height: 20),
+
+                // Form Card
                 Container(
                   padding: const EdgeInsets.all(20),
-                  width: 350,
                   decoration: BoxDecoration(
-                    color: Colors.transparent,
+                    gradient: const LinearGradient(
+                      begin: Alignment.topCenter,
+                      end: Alignment.bottomCenter,
+                      colors: [
+                        Color(0xFF0E1C2F), // dark blue
+                        Color(0xFF1E3A5C), // mid blue
+                      ],
+                    ),
                     borderRadius: BorderRadius.circular(25),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black.withOpacity(0.3),
+                        blurRadius: 10,
+                        offset: const Offset(0, 5),
+                      ),
+                    ],
                   ),
                   child: Form(
                     child: Column(
@@ -58,10 +68,11 @@ class _RegistrationPageState extends State<RegistrationPage> {
                           decoration: const InputDecoration(
                             labelText: 'Full Name',
                             labelStyle: TextStyle(color: Colors.white),
-                            prefixIcon: Icon(Icons.person_outline),
+                            prefixIcon: Icon(Icons.person_outline,
+                                color: Colors.white70),
                           ),
                         ),
-                        const SizedBox(height: 30),
+                        const SizedBox(height: 25),
 
                         // Email
                         TextFormField(
@@ -69,68 +80,76 @@ class _RegistrationPageState extends State<RegistrationPage> {
                           decoration: const InputDecoration(
                             labelText: 'Email',
                             labelStyle: TextStyle(color: Colors.white),
-                            prefixIcon: Icon(Icons.email),
+                            prefixIcon:
+                                Icon(Icons.email, color: Colors.white70),
                           ),
                         ),
-                        const SizedBox(height: 30),
+                        const SizedBox(height: 25),
 
                         // Password
                         TextFormField(
+                          obscureText: _obscurePassword,
                           style: const TextStyle(color: Colors.white),
-                          decoration: const InputDecoration(
+                          decoration: InputDecoration(
                             labelText: 'Password',
-                            labelStyle: TextStyle(color: Colors.white),
-                            prefixIcon: Icon(Icons.password),
+                            labelStyle: const TextStyle(color: Colors.white),
+                            prefixIcon:
+                                const Icon(Icons.lock, color: Colors.white70),
+                            suffixIcon: IconButton(
+                              icon: Icon(
+                                _obscurePassword
+                                    ? Icons.visibility
+                                    : Icons.visibility_off,
+                                color: Colors.white70,
+                              ),
+                              onPressed: () {
+                                setState(() {
+                                  _obscurePassword = !_obscurePassword;
+                                });
+                              },
+                            ),
                           ),
-                          obscureText: true,
                         ),
-                        const SizedBox(height: 30),
+                        const SizedBox(height: 20),
 
                         // Checkbox + Terms
-                        Align(
-                          alignment: Alignment.centerLeft,
-                          child: Row(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              Checkbox(
-                                value: isChecked,
-                                onChanged: (value) {
-                                  setState(() {
-                                    isChecked = value ?? false;
-                                  });
-                                },
-                                activeColor: Colors.blue,
-                              ),
-                              Flexible(
-                                child: Text(
-                                  "I agree to the Terms and Conditions",
-                                  style: GoogleFonts.poppins(
-                                    color: Colors.white,
-                                    fontSize: 16,
-                                  ),
+                        Row(
+                          children: [
+                            Checkbox(
+                              value: isChecked,
+                              onChanged: (value) {
+                                setState(() {
+                                  isChecked = value ?? false;
+                                });
+                              },
+                              activeColor: Colors.blue,
+                            ),
+                            Flexible(
+                              child: Text(
+                                "I agree to the Terms and Conditions",
+                                style: GoogleFonts.poppins(
+                                  color: Colors.white,
+                                  fontSize: 16,
                                 ),
                               ),
-                            ],
-                          ),
+                            ),
+                          ],
                         ),
-                        const SizedBox(height: 30),
+                        const SizedBox(height: 20),
 
                         // Sign Up Button
                         ElevatedButton(
                           onPressed: () {
-                            print("Sign Up button pressed");
+                            debugPrint("Sign Up pressed");
                           },
                           style: ElevatedButton.styleFrom(
                             backgroundColor:
-                                const Color.fromRGBO(224, 208, 212, 1),
-                            foregroundColor: Colors.black,
+                                const Color.fromARGB(255, 70, 133, 167),
+                            foregroundColor: Colors.white,
+                            padding: const EdgeInsets.symmetric(vertical: 15),
                             shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10.0),
-                              side: const BorderSide(color: Colors.grey),
+                              borderRadius: BorderRadius.circular(15),
                             ),
-                            minimumSize: const Size(130, 50),
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 16, vertical: 12),
                           ),
                           child: Text(
                             "Sign Up",
@@ -140,7 +159,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                             ),
                           ),
                         ),
-                        const SizedBox(height: 30),
+                        const SizedBox(height: 25),
 
                         // Already have account? Login
                         Row(
@@ -177,6 +196,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
           ),
         ),
       ),
+      backgroundColor: const Color(0xFF3A6396),
     );
   }
 }
