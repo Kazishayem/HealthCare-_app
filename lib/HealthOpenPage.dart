@@ -31,12 +31,12 @@ class HealthOpenPage extends StatelessWidget {
                 ],
               ),
             ),
-            const SizedBox(height: 20),
+            // const SizedBox(height: 10),
             Container(
-              width: double.infinity, // <-- full width
+              width: double.infinity,
               padding: EdgeInsets.all(20),
               child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start, // <-- left
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   // Text(
                   //   "Welcome to\nHealthCare App",
