@@ -3,48 +3,41 @@ import 'package:healthcare/AppColors.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class HealthOpenPage extends StatelessWidget {
-
-  const HealthOpenPage({super.key });
-
-  
- 
-
-  void GuestButton() {}
-  void FacebookButton() {}
+  const HealthOpenPage({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       extendBodyBehindAppBar: true,
+      resizeToAvoidBottomInset: true, // ✅ overflow fix
       body: SafeArea(
         child: LayoutBuilder(
           builder: (context, constraints) {
             return SingleChildScrollView(
               child: ConstrainedBox(
                 constraints: BoxConstraints(
-                  minHeight: constraints.maxHeight, // ✅ full screen fillup
+                  minHeight: constraints.maxHeight, // ✅ full height maintain
                 ),
                 child: IntrinsicHeight(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: [
-                      // 🔹 Top Image
-                      Padding(
-                        padding: const EdgeInsets.all(20),
-                        child: Center(
+                  child: Padding(
+                    padding: const EdgeInsets.all(20),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [
+                        // 🔹 Top Image
+                        Center(
                           child: Image.asset(
                             "assets/images/first_page.png",
-                            height: 400,
+                            height: MediaQuery.of(context).size.height * 0.4,
                             fit: BoxFit.contain,
                           ),
                         ),
-                      ),
 
-                      // 🔹 Middle Texts
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 20),
-                        child: Column(
+                        const SizedBox(height: 20),
+
+                        // 🔹 Middle Texts
+                        Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             RichText(
@@ -67,7 +60,7 @@ class HealthOpenPage extends StatelessWidget {
                                 ],
                               ),
                             ),
-                            const SizedBox(height: 30),
+                            const SizedBox(height: 20),
                             Text(
                               "Track Your Active Lifestyle",
                               style: GoogleFonts.poppins(
@@ -78,59 +71,63 @@ class HealthOpenPage extends StatelessWidget {
                             ),
                           ],
                         ),
-                      ),
 
-                      // 🔹 Bottom Buttons + FAB
-                      Padding(
-                        padding: const EdgeInsets.all(20),
-                        child: Column(
-                          crossAxisAlignment:
-                              CrossAxisAlignment.start, // ✅ left align
+                        const SizedBox(height: 30),
+
+                        // 🔹 Bottom Buttons + FAB
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Row(
-                              mainAxisAlignment:
-                                  MainAxisAlignment.start, // ✅ left start
-                              children: <Widget>[
-                                ElevatedButton(
-                                  onPressed: GuestButton,
-                                  style: ElevatedButton.styleFrom(
-                                    backgroundColor:
-                                        const Color.fromRGBO(224, 208, 212, 1),
-                                    foregroundColor: Colors.black,
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(10.0),
-                                      side:
-                                          const BorderSide(color: Colors.grey),
+                              children: [
+                                Expanded(
+                                  child: ElevatedButton(
+                                    onPressed: () => Navigator.pushNamed(
+                                        context, '/registration'),
+                                    style: ElevatedButton.styleFrom(
+                                      backgroundColor: const Color.fromRGBO(
+                                          224, 208, 212, 1),
+                                      foregroundColor: Colors.black,
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(10.0),
+                                        side: const BorderSide(
+                                            color: Colors.grey),
+                                      ),
+                                      minimumSize: const Size(0, 50),
                                     ),
-                                    minimumSize: const Size(130, 50),
-                                  ),
-                                  child: Text(
-                                    "Guest",
-                                    style: GoogleFonts.poppins(
-                                      fontWeight: FontWeight.w400,
-                                      fontSize: 17,
+                                    child: Text(
+                                      "Guest",
+                                      style: GoogleFonts.poppins(
+                                        fontWeight: FontWeight.w400,
+                                        fontSize: 17,
+                                      ),
                                     ),
                                   ),
                                 ),
-                                const SizedBox(width: 30),
-                                ElevatedButton(
-                                  onPressed: FacebookButton,
-                                  style: ElevatedButton.styleFrom(
-                                    backgroundColor:
-                                        const Color.fromRGBO(224, 208, 212, 1),
-                                    foregroundColor: Colors.black,
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(10.0),
-                                      side:
-                                          const BorderSide(color: Colors.grey),
+                                const SizedBox(width: 20),
+                                Expanded(
+                                  child: ElevatedButton(
+                                    onPressed: () => Navigator.pushNamed(
+                                        context, '/registration'),
+                                    style: ElevatedButton.styleFrom(
+                                      backgroundColor: const Color.fromRGBO(
+                                          224, 208, 212, 1),
+                                      foregroundColor: Colors.black,
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(10.0),
+                                        side: const BorderSide(
+                                            color: Colors.grey),
+                                      ),
+                                      minimumSize: const Size(0, 50),
                                     ),
-                                    minimumSize: const Size(130, 50),
-                                  ),
-                                  child: Text(
-                                    "Facebook",
-                                    style: GoogleFonts.poppins(
-                                      fontWeight: FontWeight.w400,
-                                      fontSize: 17,
+                                    child: Text(
+                                      "Facebook",
+                                      style: GoogleFonts.poppins(
+                                        fontWeight: FontWeight.w400,
+                                        fontSize: 17,
+                                      ),
                                     ),
                                   ),
                                 ),
@@ -140,9 +137,8 @@ class HealthOpenPage extends StatelessWidget {
                             Align(
                               alignment: Alignment.centerRight,
                               child: FloatingActionButton(
-                                onPressed: () {
-                                  Navigator.pushNamed(context, '/registration');
-                                },
+                                onPressed: () => Navigator.pushNamed(
+                                    context, '/registration'),
                                 shape: const CircleBorder(),
                                 child:
                                     const Icon(Icons.arrow_right_alt, size: 35),
@@ -150,8 +146,8 @@ class HealthOpenPage extends StatelessWidget {
                             ),
                           ],
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 ),
               ),

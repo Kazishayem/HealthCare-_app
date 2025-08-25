@@ -12,7 +12,8 @@ class HealthDetails extends StatelessWidget {
     return Scaffold(
       backgroundColor: const Color(0xFFF6F6FA),
       body: SafeArea(
-        child: Padding(
+        child: SingleChildScrollView(
+          // ✅ scrollable to avoid overflow
           padding: const EdgeInsets.all(20),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -70,67 +71,87 @@ class HealthDetails extends StatelessWidget {
 
               // Cards row 1
               Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  _metricCard(
+                  Expanded(
+                    child: _metricCard(
                       title: 'Heart Rate',
                       value: '78',
                       unit: 'bpm',
                       icon: Icons.favorite,
-                      color: Colors.pink.shade100,
-                      iconColor: Colors.pink),
-                  _metricCard(
+                      color: const Color(0xFFFFE0E9), // ✅ light pink
+                      iconColor: Colors.pink,
+                    ),
+                  ),
+                  const SizedBox(width: 15),
+                  Expanded(
+                    child: _metricCard(
                       title: 'Exercise',
                       value: '24',
                       unit: 'min',
                       icon: Icons.flash_on,
-                      color: Colors.purple.shade100,
-                      iconColor: Colors.purple),
+                      color: const Color(0xFFEDE7F6), // ✅ light purple
+                      iconColor: Colors.purple,
+                    ),
+                  ),
                 ],
               ),
               const SizedBox(height: 20),
 
               // Cards row 2
               Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  _metricCard(
+                  Expanded(
+                    child: _metricCard(
                       title: 'Walking',
                       value: '10',
                       unit: 'km',
                       icon: Icons.directions_walk,
-                      color: Colors.teal.shade100,
-                      iconColor: Colors.teal),
-                  _metricCard(
+                      color: const Color(0xFFE0F7F4), // ✅ soft teal
+                      iconColor: Colors.teal,
+                    ),
+                  ),
+                  const SizedBox(width: 15),
+                  Expanded(
+                    child: _metricCard(
                       title: 'Sleep',
                       value: '8',
                       unit: 'hrs',
                       icon: Icons.nights_stay,
-                      color: Colors.blue.shade100,
-                      iconColor: Colors.blue),
+                      color: const Color(0xFFE3F2FD), // ✅ soft blue
+                      iconColor: Colors.blue,
+                    ),
+                  ),
                 ],
               ),
               const SizedBox(height: 20),
+
+              // Cards row 3
               Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  _metricCard(
-                      title: 'Walking',
-                      value: '10',
-                      unit: 'km',
-                      icon: Icons.directions_walk,
-                      color: Colors.teal.shade100,
-                      iconColor: Colors.teal),
-                  _metricCard(
-                      title: 'Sleep',
-                      value: '8',
-                      unit: 'hrs',
-                      icon: Icons.nights_stay,
-                      color: Colors.blue.shade100,
-                      iconColor: Colors.blue),
+                  Expanded(
+                    child: _metricCard(
+                      title: 'Calories',
+                      value: '220',
+                      unit: 'kcal',
+                      icon: Icons.local_fire_department,
+                      color: const Color(0xFFFFF3E0), // ✅ light orange
+                      iconColor: Colors.deepOrange,
+                    ),
+                  ),
+                  const SizedBox(width: 15),
+                  Expanded(
+                    child: _metricCard(
+                      title: 'Water',
+                      value: '2',
+                      unit: 'L',
+                      icon: Icons.water_drop,
+                      color: const Color(0xFFE0F7FA), // ✅ aqua blue
+                      iconColor: Colors.lightBlue,
+                    ),
+                  ),
                 ],
               ),
-              const SizedBox(height: 20),
+              const SizedBox(height: 30),
 
               // Show Doctor List button
               SizedBox(
@@ -140,11 +161,13 @@ class HealthDetails extends StatelessWidget {
                     Navigator.pushNamed(context, '/doctorlist');
                   },
                   style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.pink.shade50,
-                      foregroundColor: Colors.black,
-                      padding: const EdgeInsets.symmetric(vertical: 15),
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10))),
+                    backgroundColor: Colors.pink.shade200,
+                    foregroundColor: Colors.white,
+                    padding: const EdgeInsets.symmetric(vertical: 15),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                  ),
                   child: Text(
                     'Show Doctor List',
                     style: GoogleFonts.poppins(
@@ -177,44 +200,63 @@ class HealthDetails extends StatelessWidget {
         ),
       ),
 
-      // Center FAB
+      // Center FAB (lowered a bit)
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {},
-        child: const Icon(Icons.add),
+      floatingActionButton: Transform.translate(
+        offset: const Offset(0, 20), // ✅ নিচে নামানো হলো
+        child: FloatingActionButton(
+          onPressed: () {},
+          child: const Icon(Icons.add),
+        ),
       ),
     );
   }
 
   // Metric Card Widget
-  Widget _metricCard(
-      {required String title,
-      required String value,
-      required String unit,
-      required IconData icon,
-      required Color color,
-      required Color iconColor}) {
+  Widget _metricCard({
+    required String title,
+    required String value,
+    required String unit,
+    required IconData icon,
+    required Color color,
+    required Color iconColor,
+  }) {
     return Container(
-      width: 160,
       padding: const EdgeInsets.all(15),
-      decoration:
-          BoxDecoration(color: color, borderRadius: BorderRadius.circular(15)),
+      decoration: BoxDecoration(
+        color: color,
+        borderRadius: BorderRadius.circular(15),
+        boxShadow: [
+          BoxShadow(
+            // ✅ subtle shadow for better contrast
+            color: Colors.black.withOpacity(0.05),
+            blurRadius: 6,
+            offset: const Offset(2, 4),
+          )
+        ],
+      ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Icon(icon, color: iconColor),
+          Icon(icon, color: iconColor, size: 28),
           const SizedBox(height: 10),
-          Text(title,
-              style: GoogleFonts.poppins(
-                  fontSize: 14,
-                  color: Colors.black54,
-                  fontWeight: FontWeight.w500)),
+          Text(
+            title,
+            style: GoogleFonts.poppins(
+              fontSize: 14,
+              color: Colors.black54,
+              fontWeight: FontWeight.w500,
+            ),
+          ),
           const SizedBox(height: 5),
-          Text('$value $unit',
-              style: GoogleFonts.poppins(
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.black87)),
+          Text(
+            '$value $unit',
+            style: GoogleFonts.poppins(
+              fontSize: 20,
+              fontWeight: FontWeight.bold,
+              color: Colors.black87,
+            ),
+          ),
         ],
       ),
     );

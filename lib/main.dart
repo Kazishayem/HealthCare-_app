@@ -19,11 +19,9 @@ class MyApp extends StatelessWidget {
       // home: HealthOpenPage(),
       // home: RegistrationPage(),
 
-      initialRoute: '/doctorlist',
+      initialRoute: '/openpage',
       routes: {
-        '/openpage': (context) => HealthOpenPage(
-          
-        ),
+        '/openpage': (context) => HealthOpenPage(),
         '/registration': (context) => RegistrationPage(),
         '/login': (context) => LoginPage(),
         '/healthdetails': (context) => HealthDetails(
